@@ -1,39 +1,41 @@
 fun main () {
-    labirinto()
-    var categoria:String = ""
+    var option: Int = 5
 
-    //enquanto a variavel option for diferente de (0,1,2) exibir erro e pedir novamente a digitação
-    var option:Short = menu()
+    //enquanto option não for zero rodar o programa
 
-    if (option == 1.toShort()){
-        while (categoria!="Frutas" && categoria!="Cidades" && categoria!="NomesProprio"){
-            categoria = categoria()
-        }
-    }else if (option==2.toShort()){
-        println("Tem que escolher primeiro a categoria, tente novamente")
-    }else{
-        println("FIM")
-    }
-    //pegando uma palavra aleatório para o jogo
-    var keyword = geraPalavra(categoria)
+    while(option!=0){
 
-    //mostra menu principal
-    option = menu()
+        var categoria:String = ""
+        var nome:String = ""
 
-    //declarando variavel do nome
-    var nome: String = ""
+        option = menu()//pega e valida a primeira opcao do primeiro menu
 
-    //se opção 2 solicita o nome
-    if (option==2.toShort()){
-        // declarando variavel da validação
-        var validaNome: Boolean = false
-        while (validaNome==false){
-            println("Introduza o nome do jogador(a):")
-            nome = readLine()!!
-            validaNome = validaNome(nome)
-            if (validaNome == false){
-                println("Nome invalido, tente novamente")
+        if(option==1){//se opção "Escolher categoria" ir para menu de categorias
+
+            categoria=categoria()//mostra o menu de categorias, valida a entrada de dados e retorna (Frutas ou Cidades ou Nomes)
+
+        }else if(option==2) {//opcao "Iniciar jogo"
+
+            if(categoria!=""){//se categoria ja foi escolhida iniciar jogo
+
+                nome = pegaNome()//pega e valida nome
+
+
+
+            }else{//caso categoria não tenha sido escolhida ainda
+
+                println("Tem que escolher primeiro a categoria, tente novamente")//mensagem de erro
+
             }
+        }else{
+
         }
     }
-}
+
+
+
+
+
+
+
+
