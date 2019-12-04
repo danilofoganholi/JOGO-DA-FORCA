@@ -7,7 +7,7 @@ fun pegaNome(): String{
 
         println("Introduza o nome do jogador(a):")
 
-        nome = readLine()!!//lendo o nome
+        nome = readLine()?:""//lendo o nome
 
         validaNome = validaNome(nome)//valida o nome do jogador
 
