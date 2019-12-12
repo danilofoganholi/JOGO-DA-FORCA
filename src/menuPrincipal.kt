@@ -2,7 +2,7 @@ fun menuPrincipal():Int{
     do{
         println(obtemMenu()) //mostra do menu principal
 
-        val option = readLine()?.toIntOrNull()?: 3//leitura da opção
+        val option = readLine()?.toIntOrNull()?: -1//leitura da opção
 
         if (option !=0 && option !=1 && option !=2){//se o número for inválido
 

@@ -4,14 +4,14 @@ fun categoria():String{
         //mostrar o menu de categorias
         run {
             println(
-                ">>> Escolha a categoria" +
-                        "\nA - Frutas" +
-                        "\nB - Cidades" +
-                        "\nC - Nomes proprio" +
-                        "\n0 - Sair sem escolher categoria\n"
+                "\n>>> Escolha a categoria\n\n" +
+                        "A - Frutas\n" +
+                        "B - Cidades\n" +
+                        "C - Nomes proprios\n" +
+                        "0 - Sair sem escolher categoria\n"
             )
         }
-        categoria = readLine()?: ""//leitura da categoria
+        categoria = readLine()?: "0"//leitura da categoria
         //valida a categoria
         run {
             //atribui categoria correta de acordo com a opcao escolhida

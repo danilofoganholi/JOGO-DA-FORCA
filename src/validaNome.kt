@@ -7,11 +7,14 @@ fun validaNome(nome: String): Boolean {
         if (nome.length != 0) {//se o nome não tiver nenhum caracter, não verificar se tem espaco
             do {
                 if (nome[count].toString() == " ") {//se o caractere for igual a um espaço
+
                     indiceEspaco = count //atribuir o indice onde o espaço esta na string
+
                     count = nome.length//forçar a saida do loop, pois só nos interessa o primeiro espaço
                 }
                 count++ //acrescenta 1 no count para verificar o proximo caractere do nome
-            } while (count < nome.length)
+
+            } while (count < nome.length)//enquanto não tiver passado por todas os caracteres
         }
     }//verificando se tem espaço--- se houver espaço é porque tem pelo menos dois nomes
 
