@@ -1,16 +1,11 @@
 fun pegaPalpite(): Char{
-    var palpiteString = "" //variavel que vai guardar o valor do palpite em string para ser validada
+    do{
+        val palpiteString = readLine()?: "" // pedindo palpite
 
-    var validaPalpite = false //variavel para guardar a validacao do palpite
+        val validaPalpite = validaPalpite(palpiteString)//validando palpite
 
-    while (validaPalpite==false){ //enquanto o palpite não for valido continuar a pedi-lo
+        if (validaPalpite) return palpiteString[0] else println("Letra invalida, tente novamente")
 
-        palpiteString = readLine()?: "" // pedindo palpite
-
-        validaPalpite = validaPalpite(palpiteString)//validando palpite
-
-        if (validaPalpite==false){println("Letra invalida, tente novamente")}//se palpite invalido mostrar erro e pedir de novo
-    }
-
-    return palpiteString[0] //passando o palpite de string para char e retornando ele
+    }while (!(validaPalpite))//enquanto o palpite for invalido continuar a pedi-lo
+    return '1'
 }
