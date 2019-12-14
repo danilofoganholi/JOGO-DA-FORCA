@@ -1,20 +1,19 @@
 fun pegaNome(): String{
-    //inicializando variaveis
-    var nome = ""
-    var validaNome: Boolean = false
-
-    while (validaNome==false){//enquanto nome for inválido pedir novamente
-
+    do{
         println("Introduza o nome do jogador(a):")
 
-        nome = readLine()?:"null"//lendo o nome
+        val nome = readLine()?:""//lendo o nome
 
-        validaNome = validaNome(nome)//valida o nome do jogador
+        val validaNome = validaNome(nome)//valida o nome do jogador
 
-        if (validaNome == false){//se for invalido print erro
+        if (validaNome){//se validador do nome returnar true
+
+            return nome //retorna o nome valido
+
+        }else {//se retornar false, mostrar mensagem de erro e pedir de novo
 
             println("Nome invalido, tente novamente")//mensagem de erro para nome invalido
         }
-    }
-    return nome
+    }while (!(validaNome))//enquanto nome for inválido pedir novamente
+    return ""
 }

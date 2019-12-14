@@ -3,9 +3,9 @@ fun jogoDaForca(categoria:String, palavra:String){
 
     var estruturaPalavra = estruturaPalavra(palavra)//pega a estrutura da palavra sem nenhum palpite ainda
 
-    while (numErros<6){//enquanto o numero de erros for menor que 5 continuar a pedir palpites
+    do{//enquanto o numero de erros for menor que 5 continuar a pedir palpites
 
-        mostraJogo(categoria,numErros,estruturaPalavra)//print do menu do jogo da forca
+        mostraJogo(categoria,numErros,estruturaPalavra)//mostra o menu do jogo da forca
 
         val palpite: Char = pegaPalpite()
 
@@ -13,9 +13,9 @@ fun jogoDaForca(categoria:String, palavra:String){
 
             numErros ++ //acrescentar 1 ao numero de erros
 
-            estruturaPalavra = estruturaPalavra(palavra,null) //deixar a estrutura apenas com tracinhos
-
             if (numErros<6) { //se o numero de erros for menor que 6
+
+                estruturaPalavra = estruturaPalavra(palavra,null) //deixar a estrutura apenas com tracinhos
 
                 println(">>> Errado. A letra '$palpite' nao aparece.\n") // mensagem de erro
 
@@ -36,5 +36,5 @@ fun jogoDaForca(categoria:String, palavra:String){
             //mostra quantas vezes o palpite aparece na palavra
             println(">>> Certo. A letra '$palpite' aparece ${numOcorrencias(palavra,palpite)}X.\n")
         }
-    }
+    }while (numErros<6)
 }
