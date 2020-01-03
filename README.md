@@ -7,6 +7,7 @@ Estamos a desenvolver um programa de jogo da forca em kotlin
 # ORGANIZAÇÃO DAS FUNÇÕES
 
 +src
+
     -Constroi.kt
         *constroiBonecoForca()
         *constroiGrafico()
