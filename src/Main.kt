@@ -1,7 +1,10 @@
 fun main () {
-    var categoria = ""//declarando variavel que pegara o valor da categoria
+////////////////////////////////////////////////area de testes//////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    var categoria = 0//declarando variavel que pegara o valor da categoria
     do {
-        val opcao:Int = menuPrincipal()//pega e valida o primeira menu (retorna apenas 0,1 e 2)
+        val opcao:Int = menuPrincipal()//pega e valida o primeira menu (retorna apenas 0,1,2,3,4,5)
 
         when (opcao){//se opção 1="Escolher categoria" ir para menu de categorias
 
@@ -9,31 +12,34 @@ fun main () {
 
             2->{//se opcao 2="Iniciar jogo" verificar se já tem categoria escolhida
 
-                if (categoria != "") {//se categoria ja foi escolhida iniciar jogo
+                if (categoria != 0) {//se categoria ja foi escolhida iniciar jogo
 
-                    var nome:String = pegaNome()//pega nome e retorna se for valido
+                    val nome:String = pegaNome()//pega nome e retorna se for valido
 
-                    val palavraJogo = geraPalavra(categoria)//gera a palavra a ser descoberta pela usuario no jogo da forca
+                    //pergunta se quer com boneco ou sem boneco da forca
+                    val boneco = perguntaBoneco()
 
-                    jogoDaForca(categoria,palavraJogo)//FUNÇÃO DO JOGO PROPRIAMENTE DITO
+                    //gera a palavra a ser descoberta pela usuario no jogo da forca
+                    val palavraJogo = geraPalavra(categoria,"palavras.txt")
 
-                    categoria = "" //reset da categoria
-
-                    nome = "" // reset do nome
+                    if(palavraJogo!=null) {
+                        jogoDaForca(categoria,palavraJogo,boneco)//FUNÇÃO DO JOGO PROPRIAMENTE DITO
+                        categoria = 0 //reset da categoria
+                    }else{
+                        println("Erro ao gerar palavra para o jogo, por favor tente novamente.")
+                    }
 
                 } else {//caso categoria não tenha sido escolhida ainda
 
                     println("Tem que escolher primeiro a categoria, tente novamente")//mensagem de erro
                 }
             }
+
+            3->{}
+
+            4->{}
+
+            5->{}
         }
     }while (opcao != 0)//enquanto opcao não for zero rodar o programa
 }
-
-
-
-
-
-
-
-
