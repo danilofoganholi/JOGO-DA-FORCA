@@ -96,3 +96,35 @@ fun validaPalpite(palpite:String): Boolean{
         }
     }else false //caso tenha mais de uma letra retorna false
 }
+
+//valida os arrays passados
+fun validaArrays(nomesJogadores: Array<String?>,jogosGanhosPerdidos:Array<Pair<Int,Int>?>): Boolean{
+
+    //valida se o array de nomes só contem nomes validos
+    for (nome in nomesJogadores){ //verificar se todos os nomes são valido
+
+        if(nome != null){//se o nome nao for null
+
+            if (!validaNome(nome.toString())){// e nao for valido
+
+                return false //retornar false
+            }
+        }
+    }
+
+    //valida se o array de jogosGanhosPerdidos é valido
+    for (pair in jogosGanhosPerdidos){//verificar se todos os pares de vitorias e derrotas são apenas formados por numeros
+
+        if (pair != null) {//se o par for diferente de null
+            when(pair.first){//veficiar se o primeiro do par é um numero
+                in 0..9999 -> {}
+                else -> return false
+            }
+            when(pair.second){//veficiar se o segundo do par é um numero
+                in 0..9999 -> {}
+                else -> return false
+            }
+        }
+    }
+    return true // se passar por tudo é pq ambos os arrays passados são válido
+}

@@ -1,5 +1,5 @@
 //jogo da forca propriamente dito, com os palpites e os erros
-fun jogoDaForca(categoria:Int, palavra:String,boneco:Boolean){
+fun jogoDaForca(categoria:Int, palavra:String){
     var numErros = 0 //variavel para guardar o numero de erros
 
     var numeroTentativas = 0 //variavl para guardar o numero de tentativas
@@ -8,9 +8,11 @@ fun jogoDaForca(categoria:Int, palavra:String,boneco:Boolean){
 
     var estruturaPalavra = estruturaPalavra(palavraMascarada)//monta string com a estrutura da palavra sem nenhum palpite ainda
 
+    val mostraboneco = perguntaBoneco() ////pergunta se quer com boneco ou sem boneco da forca
+
     do{//enquanto o numero de erros for menor que 5 continuar a pedir palpites
 
-        if (boneco){//se for true monstra o boneco se for false não monstra o boneco
+        if (mostraboneco){//se for true monstra o boneco se for false não monstra o boneco
 
             println(constroiBonecoForca(numErros)) //monstra o boneco
         }

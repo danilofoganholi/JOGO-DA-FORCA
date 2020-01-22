@@ -75,3 +75,18 @@ fun preencheOcorrencias(palavra:String, palavraMascarada:Array<Char?>, letra: Ch
     }
     return palavraMascarada
 }
+
+//retorna índice de maior palavra
+fun maiorPalavra(nomesJogadores: Array<String?>): Int {
+    var tamanho = 0
+    for (posicao in 0 until nomesJogadores.size-1){
+        if (nomesJogadores[posicao]!=null) { // Inicia quando diferente de null
+            if (nomesJogadores[posicao]?.length ?:0 >= nomesJogadores[posicao+1]?.length ?: 0) {//calcula o tamanho da palavra atual com a posterior
+                if (nomesJogadores[posicao]?.length ?: 0 > tamanho){//substitui na variavel quando a posicao e maior
+                    tamanho = nomesJogadores[posicao]?.length ?: 0
+                }
+            }
+        }
+    }
+    return tamanho
+}

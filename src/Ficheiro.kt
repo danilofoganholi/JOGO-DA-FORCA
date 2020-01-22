@@ -30,47 +30,72 @@ fun leFicheiroCategorias(nomeFicheiro:String): Array<String>{
 //pega as estaticas que estão no ficheiro indicado
 fun leFicheiroEstatisticas(nomeFicheiro:String, nomesJogadores: Array<String?>,jogosGanhosPerdidos:Array<Pair<Int,Int>?>): Boolean{
 
-    /*Lê o ficheiro com o nome indicado e
-    preenche os arrays nomesJogadores e
-    jogosGanhosPerdidos com os valores que
-    constam no ficheiro. Os arrays que são
-    passados à função estarão inicializados a
-    null.*/
+    try {
+        val arrayArquivo = File(nomeFicheiro).readLines()//lendo arquivo de estatistica se existir
 
-    return true
+        for (line in 0..arrayArquivo.size-1){//linha por linha
+
+            val parts = arrayArquivo[line].split(':')// partir a linha no caracter separador
+
+
+            val nomeJogador = parts[0] //nome dos jogadores
+            val numeroVitorias = parts[1].toInt() // numero de vitorias
+            val numeroDerrotas = parts[2].toInt() //numero de derrotas
+
+            nomesJogadores[line] = nomeJogador//colocando o nome no array de nomes de jogador
+
+            jogosGanhosPerdidos[line] = Pair(numeroVitorias,numeroDerrotas) //jogos ganhos e perdidos
+        }
+
+        if (validaArrays(nomesJogadores,jogosGanhosPerdidos)){//se os arrays tiverem um formato valido
+
+            println("Estatisticas lidas com sucesso")//mensagem que deu tudo certo
+
+            validaEnter()//pede enter para voltar ao menu inicial
+
+            return true//retorna array com palavras na ordem
+
+        }else{
+            println("Erro na leitura do ficheiro de estatisticas")
+            validaEnter()//pede enter para voltar ao menu inicial
+
+            return false//retorna array vazio
+        }
+
+    } catch (e: FileNotFoundException) {
+        println("Ainda nao foram gravadas estatisticas")//mensagem que de erro
+        validaEnter()//pede enter para voltar ao menu inicial
+
+        return false//retorna array vazio
+    }
 }
 
 //procura o jogador e passa a posição em que ele esta
 fun procuraJogador(nomesJogadores:Array<String?>, nome: String): Int{
 
-    /*Retorna a posição onde se encontra o
-    nome do jogador indicado ou a próxima
-    “livre” caso não encontre.
-    Exemplos (pseudo-código):
-    procuraJogador([null,null],”Ana”) -> 0
-    procuraJogador([“Ana”,null],”Ana”) -> 0
-    procuraJogador([“Ana”,null],”Sara”) -> 1
-    Caso não encontre o nome indicado e já
-    não haja posições livres, deve retornar -1.*/
+    for (posicao in 0..nomesJogadores.size - 1) {// verifica nomes
+        if (nomesJogadores[posicao] == null) {// se o primeiro for null já return a posicao vaga
+            return posicao
 
-    return 0
+         // compara o nome com a posicao se forem iguais retorna a posicao
+        } else if (nome.toUpperCase() == nomesJogadores[posicao]?.toUpperCase() ?: "") {
+            return posicao
+        }
+    }
+    return -1 // caso não acharem nenhum nome igual e nenhum null retorna o -1
 }
 
 fun gravaFicheiroEstatisticas(nomeFicheiro:String,nomesJogadores:Array<String?>,jogosGanhosPerdidos:Array<Pair<Int,Int>>):Boolean{
 
-    /*Grava as estatísticas atuais num ficheiro
-    com o nome indicado, tendo em conta os
-    dois arrays que lhe são passados. O array
-    jogosGanhosPerdidos contém pares
-    (Pair) de inteiros, em que o primeiro
-    elemento é o número de jogos ganhos e o
-    segundo elemento é o número de jogos
-    perdidos. Retorna true se a gravação teve
-    sucesso ou false caso contrário. No caso
-    de ainda não haver jogadores o ficheiro
-    deverá ficar vazio. O ficheiro deverá ter o
-    formato indicado na secção Ficheiro de
-    estatísticas .*/
-
-    return false
+    val fileNameOutput = nomeFicheiro
+    val writer = File(fileNameOutput).printWriter()
+    for (posicao in 0..jogosGanhosPerdidos.size-1) {
+        if (nomesJogadores[posicao] !=null) {
+            writer.println("${nomesJogadores[posicao]}:${jogosGanhosPerdidos[posicao].first}:${jogosGanhosPerdidos[posicao].second}")
+        }else{
+            return false
+        }
+    }
+    writer.close()
+    return true
 }

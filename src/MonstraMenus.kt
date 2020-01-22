@@ -34,7 +34,7 @@ fun mostraJogo(categoria:Int, numErros:Int, estruturaPalavra:String){
     val stringCategoria = leFicheiroCategorias("categorias.txt")[categoria]
 
     //mostra o andamento do jogo
-    println("Categoria: $stringCategoria | Erros: $numErros\n" +
+    println("\nCategoria: $stringCategoria | Erros: $numErros\n" +
             "Palavra: $estruturaPalavra\n" +
             "Introduza uma letra:")
 }
