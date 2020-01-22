@@ -1,0 +1,37 @@
+35
+abacaxi:0
+melao:0
+melancia:0
+morango:0
+limao:0
+maracuja:0
+amora:0
+lisboa:1
+londres:1
+paris:1
+berlim:1
+moscou:1
+madrid:1
+granada:1
+danilo:2
+lucas:2
+carolina:2
+rafael:2
+fernando:2
+leonardo:2
+luciane:2
+nike:3
+coca cola:3
+ford:3
+apple:3
+mercedes-benz:3
+mcdonald's:3
+levi's:3
+A Origem:4
+A Bela e a Fera:4
+Wall-E:4
+Up-Altas Aventuras:4
+Senhor dos Aneis:4
+Motoqueiro Fantasma:4
+A procura da felicidade:4
+

@@ -1,0 +1,7 @@
+5
+0:Frutas
+1:Cidades
+4:Filmes
+2:Nomes proprios
+3:Marcas
+

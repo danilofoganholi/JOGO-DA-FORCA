@@ -19,45 +19,48 @@ fun constroiBonecoForca(numErros:Int): String{
 }
 
 //constroi o grafico dos jogadores
-fun constroiGrafico(nomesJogadores:Array<String?>,jogosGanhos:Array<Int>,jogosPerdidos:Array<Int>):String{
+fun constroiGrafico(nomesJogadores: Array<String?>, jogosGanhos: Array<Int>, jogosPerdidos: Array<Int>) : String {
 
-    pontosJogadores(jogosGanhos,jogosPerdidos)
     colocaEmOrdem(pontosJogadores(jogosGanhos,jogosPerdidos),nomesJogadores,jogosPerdidos,jogosGanhos)
+    val maiorPalavra = maiorPalavra(nomesJogadores)
     val blocoCinza = '\u2B1C'
     val blocoPreto = '\u2B1B'
+    var count = 0 // variavel rotativa
     var grafico = ""
     var graficoFinal = "\n------ ESTATISTICAS ------\n"
     var espaco = ""
+    if(jogosGanhos.isNotEmpty()) {
+        if (jogosGanhos.size > 0) {
+            for (i in count..jogosGanhos.size - 1) {// busca o nome dos jogares no primeiro array
+                if (nomesJogadores[count] != null) {
 
-    if (jogosGanhos.size!=0){//se o tamanho desse array for 0 é porque nimguém jogou ainda
+                    for (j in 0 until jogosGanhos[count]) { // Acrescenta Blocos pretos no grafico
+                        grafico = "${grafico}${blocoPreto}"
+                    }
+                    for (h in 0 until jogosPerdidos[count]) { // Acrescenta blocos cinzas no grafico
+                        grafico = "${grafico}${blocoCinza}"
+                    }
+                    for (numerosEspacos in 0 until maiorPalavra - (nomesJogadores[count]?.length
+                        ?: 0)) { //acrescenta espaços no grafico final
+                        espaco += " "
+                    }
+                    graficoFinal = "${graficoFinal}${espaco}${nomesJogadores[count]} ${grafico}\n" // monta graficofinal
+                    grafico = ""
+                }
+                run {
+                    count++
+                    grafico = ""
+                    espaco = ""
 
-        for (posicao in 0..jogosGanhos.size-1) {// busca o nome dos jogares no primeiro array
-            if (nomesJogadores[posicao] != null) { // Se nomes jogadores é null, não entra
-                for (j in 1..jogosGanhos[posicao]) { // Acrescenta Blocos pretos no grafico
-                    grafico = "${grafico}${blocoPreto}"
-                }
-                for (h in 1..jogosPerdidos[posicao]) { // Acrescenta blocos cinzas no grafico
-                    grafico = "${grafico}${blocoCinza}"
-                }
-                for (numerosEspacos in 1..(maiorPalavra(nomesJogadores)) - (nomesJogadores[posicao]?.length
-                    ?: 0)) { //acrescenta espaços no grafico final
-                    espaco += " "
-                }
-                graficoFinal = "${graficoFinal}${espaco}${nomesJogadores[posicao]} ${grafico}\n" // monta graficofinal
-                grafico = ""
+                }// Reseta as variaveis
             }
-            run {
-                grafico = ""
-                espaco = ""
-            }// Reseta as variaveis
+            graficoFinal += "--------------------------"
+        } else {
+            return "\n------ ESTATISTICAS ------\n" +
+                    "Ainda ninguem jogou\n" +
+                    "--------------------------" // Caso ninguém tenha jogado ainda apresenta essa mensagem
         }
-    }else {
-        return "------ ESTATISTICAS ------\n" +
-                "Ainda ninguem jogou\n" +
-                "--------------------------" // Caso ninguém tenha jogado ainda apresenta essa mensagem
     }
-
-    graficoFinal +="--------------------------"
     return graficoFinal
 }
 
@@ -73,6 +76,7 @@ fun pontosJogadores(jogosGanhos: Array<Int>, jogosPerdidos: Array<Int>) : Array<
 }
 
 fun colocaEmOrdem(pontosGanhos : Array<Int> ,nomesJogadores : Array<String?>, jogosPerdidos : Array<Int>, jogosGanhos: Array<Int> ){
+
     for(passador in 0 until (pontosGanhos.size-1)) {
         for (posicaoatual in 0 until (pontosGanhos.size-1)){
             if (pontosGanhos[posicaoatual]<pontosGanhos[posicaoatual+1]){
@@ -121,7 +125,6 @@ fun divideArray(jogosGanhosPerdidos: Array<Pair<Int,Int>?>): Pair<Array<Int>,Arr
         jogosPerdidos[index]= jogosGanhosPerdidos[index]?.second!!
     }
 
-
     return Pair(jogosGanhos,jogosPerdidos)
 }
 
@@ -158,4 +161,21 @@ fun pernaDireita():String{
     return "_ _ _ _ _ \n|/    ___|___\n|     \\ ✕✕ /\n|   ⨇ \\ □ / ⨇\n|   \\ \\ \\_/ / /" +
             "\n|    \\ \\/ \\/ /\n|     \\/   \\/\n|     |death|\n" +
             "|      \\   /\n|      /\\_/\\\n|      || ||\n|      || ||\n|    __|| ||__\n|   |___| |___|\n|_____________"
+}
+
+fun tiraNullArrayjogosGanhosPerdidos(jogosGanhosPerdidos:Array<Pair<Int,Int>?>):Array<Pair<Int,Int>>{
+    var quantidadeDeVitoriasDerrotas = 0
+    for (i in jogosGanhosPerdidos){
+        if (i!=null){
+            quantidadeDeVitoriasDerrotas++
+        }
+    }
+    val arraySemNull:Array<Pair<Int,Int>>  = Array(quantidadeDeVitoriasDerrotas, { i -> Pair(i,i)})
+
+    for(index in 0..arraySemNull.size-1){
+        if (jogosGanhosPerdidos[index]!= null){
+            arraySemNull[index]= jogosGanhosPerdidos[index]!!
+        }
+    }
+    return arraySemNull
 }

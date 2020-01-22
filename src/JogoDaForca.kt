@@ -1,5 +1,5 @@
 //jogo da forca propriamente dito, com os palpites e os erros
-fun jogoDaForca(categoria:Int, palavra:String){
+fun jogoDaForca(categoria:Int, palavra:String):Boolean{
     var numErros = 0 //variavel para guardar o numero de erros
 
     var numeroTentativas = 0 //variavl para guardar o numero de tentativas
@@ -29,7 +29,7 @@ fun jogoDaForca(categoria:Int, palavra:String){
 
             if (numErros<6) { //se o numero de erros for menor que 6
 
-                println(">>> Errado. A letra '$palpite' nao aparece.\n") // mensagem de erro
+                println(">>> Errado. A letra '$palpite' nao aparece.") // mensagem de erro
 
             }else{//caso contrario (igual ou maior que 6)
 
@@ -37,6 +37,8 @@ fun jogoDaForca(categoria:Int, palavra:String){
                 println("*** PERDEU! A palavra era \"$palavra\" ***")
 
                 validaEnter()//pede para digitar o enter
+
+                return false
             }
         }else{//se o numero de ocorrencias for diferente de 0
 
@@ -47,17 +49,18 @@ fun jogoDaForca(categoria:Int, palavra:String){
             estruturaPalavra = estruturaPalavra(palavraMascarada)
 
             //mostra quantas vezes o palpite aparece na palavra
-            println(">>> Certo. A letra '$palpite' aparece ${numOcorrencias(palavra,palpite)}X.\n")
+            println(">>> Certo. A letra '$palpite' aparece ${numOcorrencias(palavra,palpite)}X.")
         }
 
         if (null !in palavraMascarada){//verifica se todas as letras ja foram adivinhadas
 
             //mensagem de vitoria caso já tenha descoberto todas as letras
-            println("*** GANHOU ao fim de $numeroTentativas tentativas! A palavra era “$palavra” ***")
+            println("*** GANHOU ao fim de $numeroTentativas tentativas! A palavra era \"$palavra\" ***")
 
             validaEnter()//pede para digitar o enter
 
-            numErros=6//para sair do loop do while
+            return true
         }
     }while (numErros<6)
+    return false
 }

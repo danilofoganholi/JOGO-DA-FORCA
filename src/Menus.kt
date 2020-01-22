@@ -27,12 +27,12 @@ fun menuCategoria():Pair<String,Int>{
                 }
             }
 
-            "0" -> return Pair("", 0) //'0' sair sem escolher categoria
+            "0" -> return Pair("", -1) //'0' sair sem escolher categoria
 
             else -> println("Opcao invalida, tente novamente")//Se for qualquer outra coisa soltar mensagem de erro
         }
     }while (categoria!="0")
-    return Pair("", 0)
+    return Pair("", -1)
 }
 
 //menu principal do programa

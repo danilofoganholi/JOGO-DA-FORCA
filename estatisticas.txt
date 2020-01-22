@@ -1,0 +1,5 @@
+Joao:1:4
+Vacilao:3:1
+Matheus:2:3
+Danilo:5:2
+Leonardo:0:0

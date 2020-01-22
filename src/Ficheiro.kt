@@ -77,7 +77,7 @@ fun procuraJogador(nomesJogadores:Array<String?>, nome: String): Int{
         if (nomesJogadores[posicao] == null) {// se o primeiro for null já return a posicao vaga
             return posicao
 
-         // compara o nome com a posicao se forem iguais retorna a posicao
+            // compara o nome com a posicao se forem iguais retorna a posicao
         } else if (nome.toUpperCase() == nomesJogadores[posicao]?.toUpperCase() ?: "") {
             return posicao
         }
@@ -86,16 +86,29 @@ fun procuraJogador(nomesJogadores:Array<String?>, nome: String): Int{
 }
 
 fun gravaFicheiroEstatisticas(nomeFicheiro:String,nomesJogadores:Array<String?>,jogosGanhosPerdidos:Array<Pair<Int,Int>>):Boolean{
-
+    var count = 0
     val fileNameOutput = nomeFicheiro
     val writer = File(fileNameOutput).printWriter()
-    for (posicao in 0..jogosGanhosPerdidos.size-1) {
+
+    for (posicao in 0 until nomesJogadores.size) {
         if (nomesJogadores[posicao] !=null) {
-            writer.println("${nomesJogadores[posicao]}:${jogosGanhosPerdidos[posicao].first}:${jogosGanhosPerdidos[posicao].second}")
+            if (count<=nomesJogadores.size-2){
+                writer.println("${nomesJogadores[posicao]}:${jogosGanhosPerdidos[posicao].first}" +
+                        ":${jogosGanhosPerdidos[posicao].second}")
+            }else{
+                writer.print("${nomesJogadores[posicao]}:${jogosGanhosPerdidos[posicao].first}" +
+                        ":${jogosGanhosPerdidos[posicao].second}")
+            }
+            count++
         }else{
+            println("Estatisticas gravadas com sucesso\n" +
+                    "(prima enter para voltar ao menu)")
             return false
         }
     }
     writer.close()
+    println("Estatisticas gravadas com sucesso\n" +
+            "(prima enter para voltar ao menu)")
     return true
 }
+

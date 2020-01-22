@@ -1,13 +1,17 @@
 fun main () {
-////////////////////////////////////////////////area de testes//////////////////////////////////////////////////////////
+///////////////////////////////// ///////////////area de testes//////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    var categoria: Pair<String,Int> = Pair("", 0) //declarando variavel que pegara o valor da categoria
+    var categoria: Pair<String,Int> = Pair("", -1) //declarando variavel que pegara o valor da categoria
 
     val nomesJogadores:Array<String?> = arrayOfNulls(20)//array que tera os nomes dos jogadores
 
     val jogosGanhosPerdidos:Array<Pair<Int,Int>?> = arrayOfNulls(20)//array com numero de vitorias e derrotas
 
     var estatistica = false//variavel que verifica se as estatisticas já foram lidas
+
+    var nome = ""
+
+    var resultado = false
 
     do {
         val opcao:Int = menuPrincipal()//pega e valida o primeira menu (retorna apenas 0,1,2,3,4,5)
@@ -18,17 +22,17 @@ fun main () {
 
             2->{//se opcao 2="Iniciar jogo" verificar se já tem categoria escolhida
 
-                if (categoria.first != "" && categoria.second!=0) {//se categoria ja foi escolhida iniciar jogo
+                if (categoria.first != "" && categoria.second!=-1) {//se categoria ja foi escolhida iniciar jogo
 
-                    val nome:String = pegaNome()//pega nome e retorna se for valido
+                    nome = pegaNome()//pega nome e retorna se for valido
 
                     //gera a palavra a ser descoberta pela usuario no jogo da forca
                     val palavraJogo = geraPalavra(categoria.second,"palavras.txt")
 
                     if(palavraJogo!=null) {
-                        jogoDaForca(categoria.second,palavraJogo)//FUNÇÃO DO JOGO PROPRIAMENTE DITO
+                        resultado= jogoDaForca(categoria.second,palavraJogo)//FUNÇÃO DO JOGO PROPRIAMENTE DITO
 
-                        categoria = Pair("", 0) //reset da categoria
+                        categoria = Pair("", -1) //reset da categoria
                     }else{
                         println("Erro ao gerar palavra para o jogo, por favor tente novamente.")
                     }
@@ -55,7 +59,33 @@ fun main () {
 
 
             5->{
-                //gravaFicheiroEstatisticas("estatisticas.txt",nomesJogadores ,jogosGanhosPerdidos)
+                val indexSalvamento = procuraJogador(nomesJogadores,nome)
+
+                nomesJogadores[indexSalvamento]= nome
+
+                if(resultado){
+                    if(jogosGanhosPerdidos[indexSalvamento]==null){
+                        jogosGanhosPerdidos[indexSalvamento] = Pair(1,0)
+                    }else{
+                        jogosGanhosPerdidos[indexSalvamento]= Pair((jogosGanhosPerdidos[indexSalvamento]?.first ?:0) +1
+                            , jogosGanhosPerdidos[indexSalvamento]?.second ?:0
+                        )
+                    }
+
+
+                }else{
+                    if(jogosGanhosPerdidos[indexSalvamento]==null){
+                        jogosGanhosPerdidos[indexSalvamento] = Pair(0,1)
+                    }else{
+                        jogosGanhosPerdidos[indexSalvamento]= Pair((jogosGanhosPerdidos[indexSalvamento]?.first ?:0)
+                            , (jogosGanhosPerdidos[indexSalvamento]?.second ?:0) +1
+                        )
+                    }
+                }
+
+                val arrayJogos: Array<Pair<Int,Int>> = tiraNullArrayjogosGanhosPerdidos(jogosGanhosPerdidos)
+
+                gravaFicheiroEstatisticas("estatisticas.txt",nomesJogadores ,arrayJogos)
             }
         }
     }while (opcao != 0)//enquanto opcao não for zero rodar o programa
