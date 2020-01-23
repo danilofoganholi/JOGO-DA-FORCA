@@ -97,7 +97,7 @@ fun gravaFicheiroEstatisticas(nomeFicheiro:String,nomesJogadores:Array<String?>,
             if (nomesJogadores[posicao] != null) {
                 writer.println("${nomesJogadores[posicao]}:${jogosGanhosPerdidos[posicao].first}" +
                         ":${jogosGanhosPerdidos[posicao].second}")
-            } else {
+            }else {
                 writer.print("${nomesJogadores[posicao]}:${jogosGanhosPerdidos[posicao].first}" +
                         ":${jogosGanhosPerdidos[posicao].second}")
             }
