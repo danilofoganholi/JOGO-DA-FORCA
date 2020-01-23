@@ -1,8 +1,5 @@
 fun main () {
 ////////////////////////////////////////////////area de testes//////////////////////////////////////////////////////////
-
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     var categoria: Pair<String,Int> = Pair("", -1) //declarando variavel que pegara o valor da categoria
 
@@ -70,14 +67,23 @@ fun main () {
                 }
             }
 
-            4->estatistica = leFicheiroEstatisticas("estatisticas.txt", nomesJogadores, jogosGanhosPerdidos)
+            4->{
+                leFicheiroEstatisticas("estatisticas.txt", nomesJogadores, jogosGanhosPerdidos)
+                validaEnter()
+                estatistica = true // para marcar que ja foi lido as estatisticas
+            }
 
             5->{
-                atribuidorPontos(resultado,nome,nomesJogadores,jogosGanhosPerdidos)
+                for (nome in nomesJogadores){
+                    if(nome != null){
+                        atribuidorPontos(resultado,nome,nomesJogadores,jogosGanhosPerdidos)
+                    }
+                }
 
                 val arrayJogos: Array<Pair<Int,Int>> = tiraNullArrayjogosGanhosPerdidos(jogosGanhosPerdidos)
 
                 gravaFicheiroEstatisticas("estatisticas.txt",nomesJogadores ,arrayJogos)
+                validaEnter()
             }
         }
     }while (opcao != 0)//enquanto opcao não for zero rodar o programa

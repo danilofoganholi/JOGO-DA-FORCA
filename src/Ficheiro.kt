@@ -52,28 +52,23 @@ fun leFicheiroEstatisticas(nomeFicheiro:String, nomesJogadores: Array<String?>,j
 
                 println("Estatisticas lidas com sucesso")//mensagem que deu tudo certo
 
-                validaEnter()//pede enter para voltar ao menu inicial
-
                 return true//retorna array com palavras na ordem
 
             }else{
                 println("Erro na leitura do ficheiro de estatisticas")
-                validaEnter()//pede enter para voltar ao menu inicial
 
                 return true//retorna array vazio
             }
         }else{
             println("Ainda nao foram gravadas estatisticas")//mensagem que de erro
-            validaEnter()//pede enter para voltar ao menu inicial
 
             return true//retorna array vazio
         }
 
     } catch (e: FileNotFoundException) {
         println("Ainda nao foram gravadas estatisticas")//mensagem que de erro
-        validaEnter()//pede enter para voltar ao menu inicial
 
-        return true//retorna array vazio
+        return false//retorna array vazio
     }
 }
 
@@ -95,20 +90,26 @@ fun procuraJogador(nomesJogadores:Array<String?>, nome: String): Int{
 //grava no ficheiro passado as estatisticas do array
 fun gravaFicheiroEstatisticas(nomeFicheiro:String,nomesJogadores:Array<String?>,jogosGanhosPerdidos:Array<Pair<Int,Int>>):Boolean{
 
-    val writer = File(nomeFicheiro).printWriter()
+    try {
+        val writer = File(nomeFicheiro).printWriter()
 
-    for (posicao in 0 until jogosGanhosPerdidos.size) {
-        if (nomesJogadores[posicao] != null) {
-            writer.println("${nomesJogadores[posicao]}:${jogosGanhosPerdidos[posicao].first}" +
+        for (posicao in 0 until jogosGanhosPerdidos.size) {
+            if (nomesJogadores[posicao] != null) {
+                writer.println("${nomesJogadores[posicao]}:${jogosGanhosPerdidos[posicao].first}" +
                         ":${jogosGanhosPerdidos[posicao].second}")
-        } else {
-            writer.print("${nomesJogadores[posicao]}:${jogosGanhosPerdidos[posicao].first}" +
+            } else {
+                writer.print("${nomesJogadores[posicao]}:${jogosGanhosPerdidos[posicao].first}" +
                         ":${jogosGanhosPerdidos[posicao].second}")
+            }
         }
+        writer.close()
+        println("Estatisticas gravadas com sucesso")
+        return true
+    }catch (e: FileNotFoundException) {
+        return false
     }
-    writer.close()
-    println("Estatisticas gravadas com sucesso")
-    validaEnter()
-    return true
+
+
+
 }
 
