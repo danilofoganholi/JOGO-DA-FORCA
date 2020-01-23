@@ -89,17 +89,21 @@ fun procuraJogador(nomesJogadores:Array<String?>, nome: String): Int{
 
 //grava no ficheiro passado as estatisticas do array
 fun gravaFicheiroEstatisticas(nomeFicheiro:String,nomesJogadores:Array<String?>,jogosGanhosPerdidos:Array<Pair<Int,Int>>):Boolean{
-
     try {
         val writer = File(nomeFicheiro).printWriter()
-
         for (posicao in 0 until jogosGanhosPerdidos.size) {
-            if (nomesJogadores[posicao] != null) {
-                writer.println("${nomesJogadores[posicao]}:${jogosGanhosPerdidos[posicao].first}" +
-                        ":${jogosGanhosPerdidos[posicao].second}")
-            }else {
-                writer.print("${nomesJogadores[posicao]}:${jogosGanhosPerdidos[posicao].first}" +
-                        ":${jogosGanhosPerdidos[posicao].second}")
+            val linha = "${nomesJogadores[posicao]}:${jogosGanhosPerdidos[posicao].first}" +
+                    ":${jogosGanhosPerdidos[posicao].second}"
+            if (posicao != jogosGanhosPerdidos.size-1){
+                if (nomesJogadores[posicao] != null && nomesJogadores[posicao+1]!=null) {
+                    writer.println(linha)
+                }else {
+                    writer.print(linha)
+                }
+            }else{
+                if (nomesJogadores[posicao] != null){
+                    writer.print(linha)
+                }
             }
         }
         writer.close()
@@ -108,8 +112,5 @@ fun gravaFicheiroEstatisticas(nomeFicheiro:String,nomesJogadores:Array<String?>,
     }catch (e: FileNotFoundException) {
         return false
     }
-
-
-
 }
 

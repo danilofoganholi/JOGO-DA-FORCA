@@ -1,20 +1,21 @@
 //constroi o boneco com a quantidade de erros passado
 fun constroiBonecoForca(numErros:Int): String{
 
-   if (numErros==0){
-       return forca()
-   }else if(numErros==1){
-       return cabeca()
-   }else if(numErros==2){
-       return corpo()
-   }else if(numErros==3){
-       return bracoEsquerdo()
-   }else if(numErros==4){
-       return bracoDireito()
-   }else if(numErros==5){
-       return pernaEsquerda()
-   }else{
-       return pernaDireita()
+   return when (numErros) {
+       0 -> "_ _ _ _ _ \n|/       |\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|_____________"
+       1 -> "_ _ _ _ _ \n|/    ___|___\n|     \\ ◆◆ /\n|      \\ ~ /\n|       \\_/\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|_____________"
+       2 -> "_ _ _ _ _ \n|/    ___|___\n|     \\ ◆◆ /\n|      \\ ^ /\n|       \\_/" +
+               "\n|       / \\\n|      /   \\\n|     |     |\n|      \\   /\n|       \\_/\n|\n|\n|\n|\n|_____________"
+       3 -> "_ _ _ _ _ \n|/    ___|___\n|     \\ ◆◆ /\n|   ⨇ \\ ~ /\n|   \\ \\ \\_/" +
+               "\n|    \\ \\/ \\\n|     \\/   \\\n|     |     |\n|      \\   /\n|       \\_/\n|\n|\n|\n|\n|_____________"
+       4 -> "_ _ _ _ _ \n|/    ___|___\n|     \\ ◆◆ /\n|   ⨇ \\ # / ⨇\n|   \\ \\ \\_/ / /" +
+               "\n|    \\ \\/ \\/ /\n|     \\/   \\/\n|     |     |\n|      \\   /\n|       \\_/\n|\n|\n|\n|\n|_____________"
+       5 -> "_ _ _ _ _ \n|/    ___|___\n|     \\ ◇◇ /\n|   ⨇ \\ ~ / ⨇\n|   \\ \\ \\_/ / /" +
+               "\n|    \\ \\/ \\/ /\n|     \\/   \\/\n|     |     |\n" +
+               "|      \\   /\n|      /\\_/\n|      ||\n|      ||\n|    __||\n|   |___|\n|_____________"
+       else -> "_ _ _ _ _ \n|/    ___|___\n|     \\ ✕✕ /\n|   ⨇ \\ □ / ⨇\n|   \\ \\ \\_/ / /" +
+               "\n|    \\ \\/ \\/ /\n|     \\/   \\/\n|     |death|\n" +
+               "|      \\   /\n|      /\\_/\\\n|      || ||\n|      || ||\n|    __|| ||__\n|   |___| |___|\n|_____________"
    }
 }
 
@@ -130,41 +131,6 @@ fun divideArray(jogosGanhosPerdidos: Array<Pair<Int,Int>?>): Pair<Array<Int>,Arr
     }
 
     return Pair(jogosGanhos,jogosPerdidos)
-}
-
-fun forca():String{
-    return "_ _ _ _ _ \n|/       |\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|_____________"
-}
-
-fun cabeca():String{
-    return "_ _ _ _ _ \n|/    ___|___\n|     \\ ◆◆ /\n|      \\ ~ /\n|       \\_/\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|_____________"
-}
-
-fun corpo():String{
-    return "_ _ _ _ _ \n|/    ___|___\n|     \\ ◆◆ /\n|      \\ ^ /\n|       \\_/" +
-            "\n|       / \\\n|      /   \\\n|     |     |\n|      \\   /\n|       \\_/\n|\n|\n|\n|\n|_____________"
-}
-
-fun bracoEsquerdo():String{
-    return "_ _ _ _ _ \n|/    ___|___\n|     \\ ◆◆ /\n|   ⨇ \\ ~ /\n|   \\ \\ \\_/" +
-            "\n|    \\ \\/ \\\n|     \\/   \\\n|     |     |\n|      \\   /\n|       \\_/\n|\n|\n|\n|\n|_____________"
-}
-
-fun bracoDireito():String{
-    return "_ _ _ _ _ \n|/    ___|___\n|     \\ ◆◆ /\n|   ⨇ \\ # / ⨇\n|   \\ \\ \\_/ / /" +
-            "\n|    \\ \\/ \\/ /\n|     \\/   \\/\n|     |     |\n|      \\   /\n|       \\_/\n|\n|\n|\n|\n|_____________"
-}
-
-fun pernaEsquerda():String{
-    return "_ _ _ _ _ \n|/    ___|___\n|     \\ ◇◇ /\n|   ⨇ \\ ~ / ⨇\n|   \\ \\ \\_/ / /" +
-            "\n|    \\ \\/ \\/ /\n|     \\/   \\/\n|     |     |\n" +
-            "|      \\   /\n|      /\\_/\n|      ||\n|      ||\n|    __||\n|   |___|\n|_____________"
-}
-
-fun pernaDireita():String{
-    return "_ _ _ _ _ \n|/    ___|___\n|     \\ ✕✕ /\n|   ⨇ \\ □ / ⨇\n|   \\ \\ \\_/ / /" +
-            "\n|    \\ \\/ \\/ /\n|     \\/   \\/\n|     |death|\n" +
-            "|      \\   /\n|      /\\_/\\\n|      || ||\n|      || ||\n|    __|| ||__\n|   |___| |___|\n|_____________"
 }
 
 fun tiraNullArrayjogosGanhosPerdidos(jogosGanhosPerdidos:Array<Pair<Int,Int>?>):Array<Pair<Int,Int>>{
