@@ -22,11 +22,12 @@ fun constroiBonecoForca(numErros:Int): String{
 fun constroiGrafico(nomesJogadores: Array<String?>, jogosGanhos: Array<Int>, jogosPerdidos: Array<Int>) : String {
 
     colocaEmOrdem(pontosJogadores(jogosGanhos,jogosPerdidos),nomesJogadores,jogosPerdidos,jogosGanhos)
+
     val maiorPalavra = maiorPalavra(nomesJogadores)
     val blocoCinza = '\u2B1C'
     val blocoPreto = '\u2B1B'
     var count = 0 // variavel rotativa
-    var grafico = ""
+    var grafico = " "
     var graficoFinal = "\n------ ESTATISTICAS ------\n"
     var espaco = ""
     if(jogosGanhos.isNotEmpty()) {
@@ -44,24 +45,27 @@ fun constroiGrafico(nomesJogadores: Array<String?>, jogosGanhos: Array<Int>, jog
                         ?: 0)) { //acrescenta espaços no grafico final
                         espaco += " "
                     }
-                    graficoFinal = "${graficoFinal}${espaco}${nomesJogadores[count]} ${grafico}\n" // monta graficofinal
-                    grafico = ""
+                    graficoFinal += "${espaco}${nomesJogadores[count]}${grafico}\n" // monta graficofinal
                 }
                 run {
                     count++
-                    grafico = ""
+                    grafico = " "
                     espaco = ""
 
                 }// Reseta as variaveis
             }
-            graficoFinal += "--------------------------"
         } else {
             return "\n------ ESTATISTICAS ------\n" +
                     "Ainda ninguem jogou\n" +
                     "--------------------------" // Caso ninguém tenha jogado ainda apresenta essa mensagem
         }
+    }else {
+        return "\n------ ESTATISTICAS ------\n" +
+                "Ainda ninguem jogou\n" +
+                "--------------------------" // Caso ninguém tenha jogado ainda apresenta essa mensagem
     }
-    return graficoFinal
+
+    return "$graficoFinal--------------------------"
 }
 
 // Essa função calcula os pontos dos jogadores para saber as posições corretas
@@ -178,4 +182,35 @@ fun tiraNullArrayjogosGanhosPerdidos(jogosGanhosPerdidos:Array<Pair<Int,Int>?>):
         }
     }
     return arraySemNull
+}
+
+fun atribuidorPontos(resultado:Boolean,nome:String,nomesJogadores:Array<String?>,jogosGanhosPerdidos:Array<Pair<Int,Int>?>){
+    val indexSalvamento = procuraJogador(nomesJogadores,nome)//onde salvaremos os dados do jogo
+
+    nomesJogadores[indexSalvamento]= nome//salvando nome no index de salvamento
+
+    //atribuindo pontos para salvar
+    if(resultado){//se o resultado for true o usuario ganhou o jogo
+
+        if(jogosGanhosPerdidos[indexSalvamento]==null){ //se for null é o primeiro jogo dele
+
+            jogosGanhosPerdidos[indexSalvamento] = Pair(1,0)//atribuindo primeiro ponto de vitoria
+
+        }else{//se não for null é porque ele já tinha um dado salvo, teremos que somar ao dado antigo
+
+            jogosGanhosPerdidos[indexSalvamento]= Pair((jogosGanhosPerdidos[indexSalvamento]?.first ?:0) +1
+                , jogosGanhosPerdidos[indexSalvamento]?.second ?:0) //somando uma vitoria
+        }
+    }else{//se o resultado for false o usuario perdeu o jogo
+
+        if(jogosGanhosPerdidos[indexSalvamento]==null){//se for null é o primeiro jogo dele
+
+            jogosGanhosPerdidos[indexSalvamento] = Pair(0,1)//atribuindo primeiro ponto de derrota
+
+        }else{//se não for null é porque ele já tinha um dado salvo, teremos que somar ao dado antigo
+
+            jogosGanhosPerdidos[indexSalvamento]= Pair((jogosGanhosPerdidos[indexSalvamento]?.first ?:0)
+                , (jogosGanhosPerdidos[indexSalvamento]?.second ?:0) +1)//somando uma derrota
+        }
+    }
 }

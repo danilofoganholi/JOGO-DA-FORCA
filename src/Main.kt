@@ -1,5 +1,8 @@
 fun main () {
-///////////////////////////////// ///////////////area de testes//////////////////////////////////////////////////////////
+////////////////////////////////////////////////area de testes//////////////////////////////////////////////////////////
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     var categoria: Pair<String,Int> = Pair("", -1) //declarando variavel que pegara o valor da categoria
 
@@ -9,9 +12,9 @@ fun main () {
 
     var estatistica = false//variavel que verifica se as estatisticas já foram lidas
 
-    var nome = ""
+    var nome = "" // variavel que guardará o nome do jogador
 
-    var resultado = false
+    var resultado = false // variavel que guardara o resultado do jogo
 
     do {
         val opcao:Int = menuPrincipal()//pega e valida o primeira menu (retorna apenas 0,1,2,3,4,5)
@@ -22,7 +25,7 @@ fun main () {
 
             2->{//se opcao 2="Iniciar jogo" verificar se já tem categoria escolhida
 
-                if (categoria.first != "" && categoria.second!=-1) {//se categoria ja foi escolhida iniciar jogo
+                if (categoria.first != "" && categoria.second!=-1 && estatistica) {//se categoria ja foi escolhida iniciar jogo
 
                     nome = pegaNome()//pega nome e retorna se for valido
 
@@ -38,50 +41,39 @@ fun main () {
                     }
 
                 } else {//caso categoria não tenha sido escolhida ainda ou não tenha lido as estatisticas
-                    if (!estatistica){//se as estatisticas ainda for false
 
-                        println("\nTem que ler primeiro as estatisticas, tente novamente")//nao leu as estatisticas ainda
-                    }else{
+                    if (categoria.first== ""){
+
                         println("Tem que escolher primeiro a categoria, tente novamente")//nao escolheu a categoria ainda
+
+                    }else{//se as estatisticas ainda for false
+
+                        println("Tem que ler primeiro as estatisticas, tente novamente")//nao leu as estatisticas ainda
                     }
                 }
             }
 
             3->{
+                if(nome != ""){//se nome for diferente de "" significa que o usuaria já jogou
+                    atribuidorPontos(resultado,nome,nomesJogadores,jogosGanhosPerdidos)
+                }
+
                 //divide o array jogosGanhosPerdidos em dois arrays, um com apenas vitorias e outro apenas derrotas
                 val jogos: Pair<Array<Int>,Array<Int>> = divideArray(jogosGanhosPerdidos)
 
-                //constroi grafico
-                println(constroiGrafico(nomesJogadores,jogos.first,jogos.second))
+                println(constroiGrafico(nomesJogadores,jogos.first,jogos.second))//constroi grafico
+                validaEnter()
+
+                for( index in 0 until jogos.first.size){//reorganizando o array de jogos ganhos pela sequencia correta
+
+                    jogosGanhosPerdidos[index]=Pair(jogos.first[index],jogos.second[index])
+                }
             }
 
             4->estatistica = leFicheiroEstatisticas("estatisticas.txt", nomesJogadores, jogosGanhosPerdidos)
 
-
             5->{
-                val indexSalvamento = procuraJogador(nomesJogadores,nome)
-
-                nomesJogadores[indexSalvamento]= nome
-
-                if(resultado){
-                    if(jogosGanhosPerdidos[indexSalvamento]==null){
-                        jogosGanhosPerdidos[indexSalvamento] = Pair(1,0)
-                    }else{
-                        jogosGanhosPerdidos[indexSalvamento]= Pair((jogosGanhosPerdidos[indexSalvamento]?.first ?:0) +1
-                            , jogosGanhosPerdidos[indexSalvamento]?.second ?:0
-                        )
-                    }
-
-
-                }else{
-                    if(jogosGanhosPerdidos[indexSalvamento]==null){
-                        jogosGanhosPerdidos[indexSalvamento] = Pair(0,1)
-                    }else{
-                        jogosGanhosPerdidos[indexSalvamento]= Pair((jogosGanhosPerdidos[indexSalvamento]?.first ?:0)
-                            , (jogosGanhosPerdidos[indexSalvamento]?.second ?:0) +1
-                        )
-                    }
-                }
+                atribuidorPontos(resultado,nome,nomesJogadores,jogosGanhosPerdidos)
 
                 val arrayJogos: Array<Pair<Int,Int>> = tiraNullArrayjogosGanhosPerdidos(jogosGanhosPerdidos)
 
