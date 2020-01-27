@@ -15,7 +15,7 @@ fun obtemMenuCategorias(arrayCategoria:Array<String>):String{
 
     var stringMenuCategoria = "\n>>> Escolha a categoria\n\n"//inicio padrão do menu categoria
 
-    for (i in 0..arrayCategoria.size-1){//percorre os indices do array
+    for (i in 0 until arrayCategoria.size){//percorre os indices do array
 
         val ascii = (65 + i).toChar()//pega as letras pela tabela ascii
 

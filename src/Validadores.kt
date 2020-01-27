@@ -89,9 +89,13 @@ fun validaEnter(){
 
 //valida se o palpite inserido é valido
 fun validaPalpite(palpite:String): Boolean{
+
     return if (palpite.length==1){ // verifica se o palpite tem apenas uma letra
+
         when (palpite){
+
             in "a".."z",in "A".."Z"-> true // se estiver de 'a' a 'z' retorna true
+
             else -> false //caso seja caracteres especiais ou numeros retorna false
         }
     }else false //caso tenha mais de uma letra retorna false
@@ -100,22 +104,12 @@ fun validaPalpite(palpite:String): Boolean{
 //valida os arrays passados
 fun validaArrays(nomesJogadores: Array<String?>,jogosGanhosPerdidos:Array<Pair<Int,Int>?>): Boolean{
 
-    //valida se o array de nomes só contem nomes validos
-//    for (nome in nomesJogadores){ //verificar se todos os nomes são valido
-//
-//        if(nome != null){//se o nome nao for null
-//
-//            if (!validaNome(nome.toString())){// e nao for valido
-//
-//                return false //retornar false
-//            }
-//        }
-//    }
-
     //valida se o array de jogosGanhosPerdidos é valido
+
     for (pair in jogosGanhosPerdidos){//verificar se todos os pares de vitorias e derrotas são apenas formados por numeros
 
         if (pair != null) {//se o par for diferente de null
+
             when(pair.first){//veficiar se o primeiro do par é um numero
                 in 0..9999 -> {}
                 else -> return false

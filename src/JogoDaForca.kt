@@ -8,16 +8,17 @@ fun jogoDaForca(categoria:Int, palavra:String):Boolean{
 
     var estruturaPalavra = estruturaPalavra(palavraMascarada)//monta string com a estrutura da palavra sem nenhum palpite ainda
 
-    val mostraboneco = perguntaBoneco() ////pergunta se quer com boneco ou sem boneco da forca
+    val mostraboneco = perguntaBoneco() //pergunta se quer com boneco ou sem boneco da forca
 
     do{//enquanto o numero de erros for menor que 5 continuar a pedir palpites
 
-        if (mostraboneco){//se for true monstra o boneco se for false não monstra o boneco
+        run {
+            if (mostraboneco) {//se for true monstra o boneco se for false não monstra o boneco
 
-            println(constroiBonecoForca(numErros)) //monstra o boneco
-        }
-
-        mostraJogo(categoria,numErros,estruturaPalavra)//mostra o menu do jogo da forca
+                println(constroiBonecoForca(numErros)) //monstra o boneco
+            }
+            mostraJogo(categoria, numErros, estruturaPalavra)//mostra o menu do jogo da forca
+        }//mostra boneco forca
 
         val palpite: Char = pegaPalpite()//pede e valida o palpite
 
@@ -33,12 +34,20 @@ fun jogoDaForca(categoria:Int, palavra:String):Boolean{
 
             }else{//caso contrario (igual ou maior que 6)
 
+                run {
+                    if (mostraboneco) {//se for true monstra o boneco se for false não monstra o boneco
+
+                        println(constroiBonecoForca(numErros)) //monstra o boneco
+                    }
+                    mostraJogo(categoria, numErros, estruturaPalavra)//mostra o menu do jogo da forca
+                }//mostra boneco forca morto
+
                 //aviso que perdeu o jogo pois atingiu o limite de erros
                 println("*** PERDEU! A palavra era \"$palavra\" ***")
 
                 validaEnter()//pede para digitar o enter
 
-                return false
+                return false//retorna false(derrota) e volta para o main
             }
         }else{//se o numero de ocorrencias for diferente de 0
 
@@ -59,8 +68,9 @@ fun jogoDaForca(categoria:Int, palavra:String):Boolean{
 
             validaEnter()//pede para digitar o enter
 
-            return true
+            return true // retorna true(vitoria) e volta para o main
         }
-    }while (numErros<6)
-    return false
+    }while (numErros<6)//enquanto o numero de erros for menor que 6
+
+    return false//retorna false(derrota) e volta para o main
 }

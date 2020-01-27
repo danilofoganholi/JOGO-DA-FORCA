@@ -19,20 +19,20 @@ fun menuCategoria():Pair<String,Int>{
 
             in opticaoCategoria -> {//verifica se é uma opção valida
 
-                for (i in 0..arrayCategoria.size-1){//pegando um elemento do array de cada vez para comparar
+                for (i in 0 until arrayCategoria.size){//pegando um elemento do array de cada vez para comparar
+
                     if (categoria==opticaoCategoria[i]){//comparando com o digitado pelo utilizador
 
                         return Pair(opticaoCategoria[i], i)//retorna mesmo indice mas do array com as categorias
                     }
                 }
             }
-
             "0" -> return Pair("", -1) //'0' sair sem escolher categoria
 
             else -> println("Opcao invalida, tente novamente")//Se for qualquer outra coisa soltar mensagem de erro
         }
     }while (categoria!="0")
-    return Pair("", -1)
+    return Pair("", -1)//retornar nunhuma categoria
 }
 
 //menu principal do programa

@@ -1,5 +1,6 @@
-Joao:1:6
-Vacilao:3:3
-Matheus:2:5
-Danilo:5:4
-Leonardo:0:2
+Danilo:5:0
+Joao:4:1
+Leonardo:3:2
+Matheus:2:3
+Lucas:1:4
+Leonardo Lins:0:5

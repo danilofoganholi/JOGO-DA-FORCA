@@ -21,7 +21,7 @@ fun leFicheiroCategorias(nomeFicheiro:String): Array<String>{
 
         return arrayCategoria//retorna array com palavras na ordem
 
-    } catch (e: FileNotFoundException) {
+    } catch (e: FileNotFoundException) {//caso o arquivo nao seja encontrado
 
         return emptyArray()//retorna array vazio
     }
@@ -76,12 +76,15 @@ fun leFicheiroEstatisticas(nomeFicheiro:String, nomesJogadores: Array<String?>,j
 fun procuraJogador(nomesJogadores:Array<String?>, nome: String): Int{
 
     for (posicao in 0..nomesJogadores.size - 1) {// verifica nomes
-        if (nomesJogadores[posicao] == null) {// se o primeiro for null já return a posicao vaga
-            return posicao
 
-            // compara o nome com a posicao se forem iguais retorna a posicao
+        if (nomesJogadores[posicao] == null) {// se o primeiro for null já return a posicao vaga
+
+            return posicao//retorna posicao
+
+         // compara o nome com a posicao se forem iguais retorna a posicao
         } else if (nome.toUpperCase() == nomesJogadores[posicao]?.toUpperCase() ?: "") {
-            return posicao
+
+            return posicao//retorna posicao
         }
     }
     return -1 // caso não acharem nenhum nome igual e nenhum null retorna o -1
@@ -89,28 +92,41 @@ fun procuraJogador(nomesJogadores:Array<String?>, nome: String): Int{
 
 //grava no ficheiro passado as estatisticas do array
 fun gravaFicheiroEstatisticas(nomeFicheiro:String,nomesJogadores:Array<String?>,jogosGanhosPerdidos:Array<Pair<Int,Int>>):Boolean{
+
     try {
-        val writer = File(nomeFicheiro).printWriter()
-        for (posicao in 0 until jogosGanhosPerdidos.size) {
+        val writer = File(nomeFicheiro).printWriter()//pega arquivo para escrever
+
+        for (posicao in 0 until jogosGanhosPerdidos.size) {//monta linha por linha
+
             val linha = "${nomesJogadores[posicao]}:${jogosGanhosPerdidos[posicao].first}" +
-                    ":${jogosGanhosPerdidos[posicao].second}"
-            if (posicao != jogosGanhosPerdidos.size-1){
-                if (nomesJogadores[posicao] != null && nomesJogadores[posicao+1]!=null) {
-                    writer.println(linha)
-                }else {
-                    writer.print(linha)
+                    ":${jogosGanhosPerdidos[posicao].second}" //montando linha no padrão correto
+
+            if (posicao != jogosGanhosPerdidos.size-1){//se nao for a ultima posição
+
+                //se a posição atual e a proxima forem diferentes de null
+                if (nomesJogadores[posicao]!=null && nomesJogadores[posicao+1]!=null){
+
+                    writer.println(linha)//escreve a linha e deixa o ponteiro na linha de baixo
+
+                }else{
+                    writer.print(linha)//escreve a linha deixando o ponteiro na mesma
                 }
-            }else{
-                if (nomesJogadores[posicao] != null){
-                    writer.print(linha)
+            }else{//caso seja a ultma posição
+
+                if (nomesJogadores[posicao] != null){//verifica se a ultima posicao é diferente de null
+
+                    writer.print(linha)//escreve a linha deixando o ponteiro na mesma
                 }
             }
         }
-        writer.close()
-        println("Estatisticas gravadas com sucesso")
-        return true
-    }catch (e: FileNotFoundException) {
-        return false
+        writer.close()//escrever em arquivo
+
+        println("Estatisticas gravadas com sucesso") //aviso de sucesso
+
+        return true //retorna true
+
+    }catch (e: FileNotFoundException) {//caso o ficheiro nao exita
+
+        return false //retorna falso
     }
 }
-

@@ -34,6 +34,7 @@ fun pegaPalpite(): Char{
 
 //pega o numero de ocorrencias de uma letra em uma palavra
 fun numOcorrencias(palavra: String, letra: Char): Int? {
+
     var numeroOcorrencias = 0//iniciando variavel para guardar a quantidade de vezes que uma letra repete na palavra
 
     for (contador in 0..palavra.length-1){//enquanto não verificar todas as letras da palavra
@@ -41,7 +42,8 @@ fun numOcorrencias(palavra: String, letra: Char): Int? {
         //se o palpite for igual a letra dentro da palavra acrescenta 1 no numero de ocorrencias
         if (letra.toUpperCase()==palavra[contador].toUpperCase()){numeroOcorrencias++}
     }
-    return if(numeroOcorrencias==0) null else numeroOcorrencias //retorna null se tiver 0 ocorrenciais ou retorna a quantidades de ocorrencias
+    //retorna null se tiver 0 ocorrenciais ou retorna a quantidades de ocorrencias
+    return if(numeroOcorrencias==0) null else numeroOcorrencias
 }
 
 //pergunta se o usuario quer o jogo com ou sem boneco
