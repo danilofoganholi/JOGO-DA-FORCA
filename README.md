@@ -11,6 +11,11 @@ Estamos a desenvolver um programa de jogo da forca em kotlin
     -Constroi.kt
         *constroiBonecoForca()
         *constroiGrafico()
+        *colocaEmOrdem()
+        *divideArray()
+        *tiraNullArrayjogosGanhosPerdidos()
+        *atribuidorPontos()
+        *espacos()
     -Ficheiro.kt
         *leFicheiroCategorias()
         *leFicheiroEstatisticas()
@@ -32,6 +37,7 @@ Estamos a desenvolver um programa de jogo da forca em kotlin
         *estruturaPalavra()
         *montaArrayPalavra()
         *preencheOcorrencias()
+        *maiorPalavra()
     -Pega.kt
         *pegaNome()
         *pegaPalpite()
@@ -41,6 +47,7 @@ Estamos a desenvolver um programa de jogo da forca em kotlin
         *validaNome()
         *validaEnter()
         *validaPalpite()
+        *validaArrays()
 
 
 
